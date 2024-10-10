@@ -1,0 +1,22 @@
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<meta name="google-signin-client_id" content="965248319984-c5ll751dsoi9nm5vu1vrcefc9f9h27qr.apps.googleusercontent.com">
+
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+<script>
+  function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    var email = profile.getEmail();
+
+    // ドメインが @g.metro-cit.ac.jp の場合のみリダイレクト
+    if (email.endsWith('@g.metro-cit.ac.jp')) {
+      window.location.href = 'Google.com'; // リダイレクト先のURLを指定
+    } else {
+      alert('このメールアドレスではログインできません。');
+      // サインアウトする場合は以下のコードを追加
+      // var auth2 = gapi.auth2.getAuthInstance();
+      // auth2.signOut();
+    }
+  }
+</script>
