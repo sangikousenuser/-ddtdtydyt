@@ -9,14 +9,17 @@
     var profile = googleUser.getBasicProfile();
     var email = profile.getEmail();
 
-    // ドメインが @g.metro-cit.ac.jp の場合のみリダイレクト
+    // メールアドレスのドメインが @g.metro-cit.ac.jp か確認
     if (email.endsWith('@g.metro-cit.ac.jp')) {
-      window.location.href = 'Google.com'; // リダイレクト先のURLを指定
+      window.location.href = 'https://www.google.com'; // リダイレクト先のURL
     } else {
       alert('このメールアドレスではログインできません。');
-      // サインアウトする場合は以下のコードを追加
-      // var auth2 = gapi.auth2.getAuthInstance();
-      // auth2.signOut();
+      
+      // ユーザーをサインアウトする場合
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('ユーザーがサインアウトしました。');
+      });
     }
   }
 </script>
