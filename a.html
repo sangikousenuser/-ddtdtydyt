@@ -1,25 +1,42 @@
-<script src="https://apis.google.com/js/platform.js" async defer></script>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="965248319984-c5ll751dsoi9nm5vu1vrcefc9f9h27qr.apps.googleusercontent.com">
+    <title>Google Sign-In</title>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
-<meta name="google-signin-client_id" content="965248319984-c5ll751dsoi9nm5vu1vrcefc9f9h27qr.apps.googleusercontent.com">
+    <script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            var email = profile.getEmail();
 
-<div class="g-signin2" data-onsuccess="onSignIn"></div>
+            // メールアドレスのドメインが @g.metro-cit.ac.jp か確認
+            if (email.endsWith('@g.metro-cit.ac.jp')) {
+                window.location.href = 'https://www.google.com'; // リダイレクト先のURL
+            } else {
+                alert('このメールアドレスではログインできません。');
 
-<script>
-  function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    var email = profile.getEmail();
-
-    // メールアドレスのドメインが @g.metro-cit.ac.jp か確認
-    if (email.endsWith('@g.metro-cit.ac.jp')) {
-      window.location.href = 'https://www.google.com'; // リダイレクト先のURL
-    } else {
-      alert('このメールアドレスではログインできません。');
-      
-      // ユーザーをサインアウトする場合
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function () {
-        console.log('ユーザーがサインアウトしました。');
-      });
-    }
-  }
-</script>
+                // ユーザーをサインアウトする場合
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                    console.log('ユーザーがサインアウトしました。');
+                });
+            }
+        }
+    </script>
+</body>
+</html>
